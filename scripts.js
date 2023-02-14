@@ -40,13 +40,13 @@ function getPlayerChoice() {
 
 
 // loops the program 5 times
-for (let i = 0; i < 5; i++)  {
+// for (let i = 0; i < 5; i++)  {
 
-    let playerSelection = getPlayerChoice();
-    let computerSelection = getComputerChoice();
+//     let playerSelection = getPlayerChoice();
+//     let computerSelection = getComputerChoice();
 
-    playRound(playerSelection, computerSelection);
-}
+//     playRound(playerSelection, computerSelection);
+// }
 
 //provides the winning result between computer selection and player selection
 function playRound(playerSelection, computerSelection) {

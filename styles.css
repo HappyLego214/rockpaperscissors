@@ -1,0 +1,35 @@
+div {
+    border: 1px black solid;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: auto;
+    
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    height: 150px;
+    width: 550px;
+    padding: 25px;
+}
+
+.text-container {
+    height: 150px;
+    width: 350px;
+    text-align: center;
+    margin: 15px;
+}
+
+.choice-btn {
+    height: 100px;
+    width: 100px;
+}
