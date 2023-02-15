@@ -1,11 +1,13 @@
 let playerWon = 0;
 let computerWon = 0;
 let tie = 0;
-let regex = {
-    rock:/^rock$/i,
-    paper:/^paper$/i, 
-    scissors:/^scissors$/i
-}
+
+const buttons = document.querySelectorAll('.choice-btn');
+const scoreboard = document.querySelector('.scoreboard');
+const computerChoice = document.querySelector('.cmp-choice');
+const resetGame = document.querySelector('.btn-reset');
+const gameResults = document.querySelector('.game-result');
+
 
 // provides computer game decision
 function getComputerChoice() {
@@ -21,91 +23,105 @@ function getComputerChoice() {
     return computerChoice;
 }
 
+let playerSelection = '';
+let computerSelection = computerChoice;
 
 // provides player the option to choose fighter
 function getPlayerChoice() {
-    let playerChoice = prompt("Choose Your Fighter: Rock | Paper | Scissors");
-    if (regex.rock.test(playerChoice)) {
-        playerChoice = "rock";
-    } else if (regex.paper.test(playerChoice)) {
-        playerChoice = "paper";
-    } else if (regex.scissors.test(playerChoice)) {
-        playerChoice = "scissors";
-    } else {
-        playerChoice = "error";
-    }
+    buttons.forEach((button) => {
+        button.addEventListener('click', e => {
+            let computerSelection = getComputerChoice();
+            if (button.id == "rock") {
+                playerSelection = "rock";
+            } else if (button.id == "paper") {
+                playerSelection = "paper";
+            } else if (button.id == "scissors") {
+                playerSelection = "scissors";
+            }
 
-    return playerChoice;    
+            playRound(playerSelection, computerSelection);;
+            return playerSelection;
+
+        })
+    })
+
+    
+
 }
-
 
 // loops the program 5 times
 // for (let i = 0; i < 5; i++)  {
 
-//     let playerSelection = getPlayerChoice();
-//     let computerSelection = getComputerChoice();
-
-//     playRound(playerSelection, computerSelection);
+//     
 // }
 
 //provides the winning result between computer selection and player selection
+
+// const container = document.querySelector('.container');
+
 function playRound(playerSelection, computerSelection) {
 
         if (playerSelection === computerSelection ) {
-            console.log("It is a Tie!");
             tie++
+            gameResults.textContent = "It's a Tie!"
         } else if (playerSelection == "rock" ) {
             
             if (computerSelection == "paper") {
             computerWon++;
-            console.log("Computer Won!");
+            gameResults.textContent = "Computer Won!"
                 } else {
                 playerWon++;
-                console.log("Player Won!");
+                gameResults.textContent = "Player Won!"
                 }
 
         } else if (playerSelection == "scissors") {
             
             if (computerSelection == "rock") {
             computerWon++;
-            console.log("Computer Won!");
+            gameResults.textContent = "Computer Won!"
                 } else {
                 playerWon++;    
-                console.log("Player Won!");
+                gameResults.textContent = "Player Won!"
                 }
 
         } else if (playerSelection == "paper") {
             
             if (computerSelection == "scissors") {
             computerWon++;    
-            console.log("Computer Won!");
+            gameResults.textContent = "Computer Won!"
                 } else {
                 playerWon++;
-                console.log("Player Won!");
+                gameResults.textContent = "Player Won!"
                 } 
 
         } else {
             console.log("Input Error!");
         }
+
+    gameResult()
+
 }
 
+// function gameResult() {
+//     if ((tie > computerWon) && (tie > playerWon)) {
+//         console.log("Nobody Won or Lost!");
+//     } else if (playerWon > computerWon) {
+//         console.log("You Won!")
+//     } else {
+//         console.log("You Lost!")
+//     }
+// }
 
-// provide the overall result from the five games
+// gameResult()
+
 function gameResult() {
-    if ((tie > computerWon) && (tie > playerWon)) {
-        console.log("Nobody Won or Lost!");
-    } else if (playerWon > computerWon) {
-        console.log("You Won!")
-    } else {
-        console.log("You Lost!")
-    }
+    document.getElementById("playerScore").textContent = playerWon;
+    document.getElementById("computerScore").textContent = computerWon;
+    document.getElementById("gameTie").textContent = tie;
+    document.getElementById("computerPick").textContent = computerSelection;
+    document.getElementById("playerPick").textContent = playerSelection;
 }
 
-gameResult()
+getPlayerChoice();
 
-
-// keeps track of the number of results for each 5 rounds
-console.log(playerWon);
-console.log(computerWon);
-console.log(tie);
 
