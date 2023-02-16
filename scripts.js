@@ -4,10 +4,8 @@ let tie = 0;
 
 const buttons = document.querySelectorAll('.choice-btn');
 const scoreboard = document.querySelector('.scoreboard');
-const computerChoice = document.querySelector('.cmp-choice');
-const resetGame = document.querySelector('.btn-reset');
+const startGame = document.querySelector('.btn-start');
 const gameResults = document.querySelector('.game-result');
-
 
 // provides computer game decision
 function getComputerChoice() {
@@ -23,14 +21,23 @@ function getComputerChoice() {
     return computerChoice;
 }
 
-let playerSelection = '';
-let computerSelection = computerChoice;
+startGame.addEventListener('click', () => {
+
+    let computerSelection = getComputerChoice()
+
+    document.getElementById("computerPick").textContent = computerSelection;
+    document.getElementById("playerPick").textContent = playerSelection;
+
+    playRound(playerSelection, computerSelection)
+
+    return computerSelection;
+
+})
 
 // provides player the option to choose fighter
 function getPlayerChoice() {
     buttons.forEach((button) => {
-        button.addEventListener('click', e => {
-            let computerSelection = getComputerChoice();
+        button.addEventListener('click', () => {
             if (button.id == "rock") {
                 playerSelection = "rock";
             } else if (button.id == "paper") {
@@ -39,15 +46,14 @@ function getPlayerChoice() {
                 playerSelection = "scissors";
             }
 
-            playRound(playerSelection, computerSelection);;
             return playerSelection;
 
         })
     })
 
-    
-
 }
+
+
 
 // loops the program 5 times
 // for (let i = 0; i < 5; i++)  {
@@ -55,7 +61,7 @@ function getPlayerChoice() {
 //     
 // }
 
-//provides the winning result between computer selection and player selection
+// provides the winning result between computer selection and player selection
 
 // const container = document.querySelector('.container');
 
@@ -118,8 +124,6 @@ function gameResult() {
     document.getElementById("playerScore").textContent = playerWon;
     document.getElementById("computerScore").textContent = computerWon;
     document.getElementById("gameTie").textContent = tie;
-    document.getElementById("computerPick").textContent = computerSelection;
-    document.getElementById("playerPick").textContent = playerSelection;
 }
 
 getPlayerChoice();
