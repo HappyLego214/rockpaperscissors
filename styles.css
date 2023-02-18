@@ -1,11 +1,11 @@
-div {
+/* div {
     border: 1px black solid;
-}
+} */
 
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+
     align-items: center;
     height: 100vh;
     width: auto;
