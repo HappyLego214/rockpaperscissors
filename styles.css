@@ -23,7 +23,7 @@ div {
 }
 
 .text-container {
-    height: 200px;
+    height: auto;
     width: 350px;
     text-align: center;
     margin: 25px;

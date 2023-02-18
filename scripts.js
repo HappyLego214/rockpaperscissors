@@ -2,6 +2,8 @@ let playerWon = 0;
 let computerWon = 0;
 let tie = 0;
 
+let startedGame = false;
+
 const buttons = document.querySelectorAll('.choice-btn');
 const scoreboard = document.querySelector('.scoreboard');
 const startGame = document.querySelector('.btn-start');
@@ -18,52 +20,47 @@ function getComputerChoice() {
     } else {
         computerChoice = "paper";
     }
+
     return computerChoice;
 }
-
-startGame.addEventListener('click', () => {
-
-    let computerSelection = getComputerChoice()
-
-    document.getElementById("computerPick").textContent = computerSelection;
-    document.getElementById("playerPick").textContent = playerSelection;
-
-    playRound(playerSelection, computerSelection)
-
-    return computerSelection;
-
-})
 
 // provides player the option to choose fighter
 function getPlayerChoice() {
     buttons.forEach((button) => {
-        button.addEventListener('click', () => {
-            if (button.id == "rock") {
-                playerSelection = "rock";
-            } else if (button.id == "paper") {
-                playerSelection = "paper";
-            } else if (button.id == "scissors") {
-                playerSelection = "scissors";
-            }
+        button.addEventListener('click', () => {            
+                let computerSelection = getComputerChoice();
 
-            return playerSelection;
+                if (button.id == "rock") {
+                    playerSelection = "rock";
+                } else if (button.id == "paper") {
+                    playerSelection = "paper";
+                } else if (button.id == "scissors") {
+                    playerSelection = "scissors";
+                }
 
-        })
-    })
+                document.getElementById("computerPick").textContent = computerSelection;
+                document.getElementById("playerPick").textContent = playerSelection;
+
+                playRound(playerSelection, computerSelection);
+                gameResult();
+
+        });
+    });
 
 }
 
+startGame.addEventListener('click', () => {
 
+    startRound();
+    startedGame = true;
 
-// loops the program 5 times
-// for (let i = 0; i < 5; i++)  {
+});
 
-//     
-// }
+function startRound() {
 
-// provides the winning result between computer selection and player selection
+    if(!startedGame) getPlayerChoice();
 
-// const container = document.querySelector('.container');
+    }
 
 function playRound(playerSelection, computerSelection) {
 
@@ -100,32 +97,34 @@ function playRound(playerSelection, computerSelection) {
                 gameResults.textContent = "Player Won!"
                 } 
 
-        } else {
-            console.log("Input Error!");
         }
 
-    gameResult()
+    scoreboardUpdate();
 
 }
 
-// function gameResult() {
-//     if ((tie > computerWon) && (tie > playerWon)) {
-//         console.log("Nobody Won or Lost!");
-//     } else if (playerWon > computerWon) {
-//         console.log("You Won!")
-//     } else {
-//         console.log("You Lost!")
-//     }
-// }
-
-// gameResult()
-
 function gameResult() {
+
+    if (playerWon == 5 || computerWon == 5) {
+        if (playerWon > computerWon) {
+            document.getElementById("totalWinner").textContent = "You Won The Game!";
+                playerWon = 0;
+                tie = 0;
+                computerWon = 0;
+        } else if (computerWon > playerWon) {
+            document.getElementById("totalWinner").textContent = "You Lost The Game!";
+                playerWon = 0;
+                tie = 0;
+                computerWon = 0;
+        }
+    } else if (playerWon < 5 && computerWon < 5) {
+        document.getElementById("totalWinner").textContent = "";
+    }
+}
+
+function scoreboardUpdate() {
     document.getElementById("playerScore").textContent = playerWon;
     document.getElementById("computerScore").textContent = computerWon;
     document.getElementById("gameTie").textContent = tie;
 }
-
-getPlayerChoice();
-
 
